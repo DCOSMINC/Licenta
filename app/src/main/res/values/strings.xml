@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">AppLicenta</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to Signing Up -->
+    <string name="usernameTextView">Username</string>
+    <string name="emailTextView">E-mail</string>
+    <string name="passwordTextView">Password</string>
+    <string name="signUpEmailHint">Enter your email</string>
+    <string name="signUpUsernameHint">Enter your username</string>
+    <string name="signUpBtnText">Register</string>
+    <string name="BackButtonText">Back</string>
+    <string name="firstNameTextView">First Name</string>
+    <string name="lastNameTextView">Last Name</string>
+    <string name="telephoneTextView">Telephone</string>
+    <string name="phoneNumberEditText">Phone Number</string>
+    <string name="signInBtnText">Sign In</string>
+    <string name="specialtyDoctor">Specialty</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_exit_button">Sign out</string>
+    <string name="add_doctor">Register doctor</string>
+    <string name="placeholder_text">Placeholder text</string>
+    <string name="booking">Adauga o programare</string>
+
+    <string-array name="login_options_array">
+        <item name="login_pacient">Pacient</item>
+        <item name="login_doctor">Doctor</item>
+    </string-array>
+    <string name="title_activity_booking">BookingActivity</string>
+    <string name="table_layout_stretch">0</string>
+    <string name="placeholder_button">Button</string>
+
+    <!-- hour strings -->
+    <string name="hour_one">09:00 - 10:00</string>
+    <string name="hour_two">10:00 - 11:00</string>
+    <string name="hour_three">11:00 - 12:00</string>
+    <string name="hour_four">12:00 - 13:00</string>
+    <string name="hour_five">13:00 - 14:00</string>
+    <string name="hour_six">14:00 - 15:00</string>
+    <string name="hour_seven">15:00 - 16:00</string>
+    <string name="hour_eight">16:00 - 17:00</string>
+    <string name="booking_title_table_layout">Selectati ora la care doriti sa faceti programarea</string>
+    <string name="doctor_specialty">Specialty</string>
+
+
+    <!-- map strings-->
+    <string name="map_key">
+        AIzaSyD6bPsvdshZk7l2cLP3ZJOhyNXXxlPiyGc
+    </string>
+
+    <string name="booking_state_negative">Rezervat</string>
+    <string name="booking_state_positive">Rezerva</string>
+    <string name="bookingListBtnText">Lista Programari</string>
+    <string name="upload_done">Upload Done</string>
+    <string name="daily_program">Program</string>
+    <string name="daily_program_value">09:00 - 17:00</string>
+    <string name="price_per_hour">Pret/Ora</string>
+    <string name="free_price">Gratis</string>
+    <string name="lorem_ipsum_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in velit dolor. Morbi tempus magna sed quam interdum condimentum. Aliquam cursus augue facilisis, tempus ante luctus, consectetur ex. Morbi viverra odio at semper posuere. Fusce pulvinar feugiat turpis, sit amet bibendum velit congue non. Morbi eget justo tempus, gravida felis at, ultricies est. Vivamus a sollicitudin ex.</string>
+    <string name="about_doctor">About Doctor</string>
+    <string name="call_now_doctor">Call Now</string>
+    <string name="book_now">Fa o programare</string>
+    <string name="call_now_rom">Suna acum</string>
+    <string name="search_hint">Cautare...</string>
+    <string name="add_booking">Adauga Programare</string>
+    <string name="doctor_name_tv">NUME DOCTOR</string>
+    <string name="date_and_hour">DATA SI ORA</string>
+    <string name="address">Adresa</string>
+    <string name="cancel_appointment">ANULEAZA PROGRAMAREA</string>
+    <string name="show_detail_appointment">Vezi programarea</string>
+    <string name="specializare_doctor">Specializare</string>
+    <string name="incorrect_login">Incorect email or password</string>
+    <string name="street_number">Nr.</string>
+    <string name="street_name">Nume strada</string>
+    <string name="city">Oras</string>
+    <string name="county_name">Judet</string>
+</resources>

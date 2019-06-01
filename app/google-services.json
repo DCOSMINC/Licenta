@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "366179942272",
+    "firebase_url": "https://applicenta-adc21.firebaseio.com",
+    "project_id": "applicenta-adc21",
+    "storage_bucket": "applicenta-adc21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366179942272:android:c8c335f18b81fe66",
+        "android_client_info": {
+          "package_name": "com.example.applicenta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366179942272-baeru25p3f3tdnapdlmiof1til4obufg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.applicenta",
+            "certificate_hash": "35f56cb98b573d0c6decea97f6c9470661af2393"
+          }
+        },
+        {
+          "client_id": "366179942272-6e1l349bn132c45qkgctpk18cvjs3u80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2O7e8Zur37hn_dSRf9rGW6mDaoTjkVBM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366179942272-6e1l349bn132c45qkgctpk18cvjs3u80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
