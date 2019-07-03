@@ -2,6 +2,8 @@ package com.example.applicenta.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,6 +57,17 @@ public class AppointmentListFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
             myAppointmentRecyclerViewAdapter = new MyAppointmentRecyclerViewAdapter(new ArrayList<>(), mListener);
+
+
+//            HandlerThread handlerThread = new HandlerThread("");
+//            handlerThread.start();
+//            Handler handler = new Handler(handlerThread.getLooper());
+//            handler.post(() -> {
+//                while(true) {
+//                    myAppointmentRecyclerViewAdapter.checkHour();
+//                }
+//            });
+
             recyclerView.setAdapter(myAppointmentRecyclerViewAdapter);
         }
         setUpdateListener();

@@ -18,7 +18,6 @@ public class WeekendDecorator implements DayViewDecorator {
 
     private Drawable drawable;
 
-
     public WeekendDecorator(Context context) {
         drawable = ContextCompat.getDrawable(context , R.drawable.red_circle);
     }

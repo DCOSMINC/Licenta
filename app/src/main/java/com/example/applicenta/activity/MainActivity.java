@@ -80,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements DoctorListFragmen
 //        getWindow().setExitTransition(new Explode());
 //        getWindow().setEnterTransition(new Explode());
 
-
+        if(savedInstanceState != null ){
+            mViewPager.setCurrentItem(savedInstanceState.getInt(Constants.VIEWPAGER_ITEM_DETAILS));
+        }
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);

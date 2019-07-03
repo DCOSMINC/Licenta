@@ -1,5 +1,6 @@
 package com.example.applicenta.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,8 @@ import com.example.applicenta.Decorator.AvailableDayDecorator;
 import com.example.applicenta.Decorator.WeekendDecorator;
 import com.example.applicenta.Model.AppointmentModel;
 import com.example.applicenta.R;
+import com.example.applicenta.activity.BookingActivity;
+import com.example.applicenta.activity.MainActivity;
 import com.example.applicenta.general.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -52,7 +55,6 @@ public class BookingActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking, container, false);
 
-
         back = view.findViewById(R.id.goBack);
         forward = view.findViewById(R.id.goForward);
         selectedHour = view.findViewById(R.id.selectedHour);
@@ -76,20 +78,6 @@ public class BookingActivityFragment extends Fragment {
         calendarView.setOnDateChangedListener((materialCalendarView, calendarDay, b) -> {
             initializeList();
             setHour_list(calendarDay);
-            Toast.makeText(getContext(), "Date " + calendarDay, Toast.LENGTH_LONG).show();
-            back.setVisibility(View.VISIBLE);
-            forward.setVisibility(View.VISIBLE);
-            selectedHour.setVisibility(View.VISIBLE);
-            completeBooking.setVisibility(View.VISIBLE);
-
-            currentPosition = 0;
-
-            if(hour_list.size() > 0) {
-                selectedHour.setText(hour_list.get(currentPosition));
-            } else {
-                Toast.makeText(getContext(), "Nu exista ore valabile pentru rezervare", Toast.LENGTH_LONG).show();
-                return;
-            }
 
             back.setOnClickListener(v -> {
                 if(currentPosition == 0) {
@@ -111,31 +99,8 @@ public class BookingActivityFragment extends Fragment {
 
             completeBooking.setOnClickListener(v -> {
                 makeBooking(selectedHour.getText().toString(), calendarDay);
-                getFragmentManager().popBackStackImmediate(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                viewDetailBooking();
             });
-
-
-
-//            Thread thread = new Thread(() -> {
-//                Fragment fragment = new BookingActivityTimeSelectionFragment();
-//
-//                Bundle bundle = new Bundle();
-//                assert getArguments() != null;
-//                bundle.putString(Constants.FIREBASE_DOCTOR_ID, getArguments().getString(Constants.FIREBASE_DOCTOR_ID));
-//                bundle.putString(Constants.DATE_SELECTED, calendarDay.toString());
-//                fragment.setArguments(bundle);
-//
-//
-//                FragmentManager fm = getFragmentManager();
-//
-//                assert fm != null;
-//                FragmentTransaction transaction = fm.beginTransaction();
-//                transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-//                transaction.replace(R.id.fragmentContainer, fragment, fragment.getTag());
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            });
-//            thread.start();
         });
 
         return view;
@@ -163,10 +128,6 @@ public class BookingActivityFragment extends Fragment {
                     }
 
                     AppointmentModel appointmentModel = new AppointmentModel(getArguments().getString(Constants.FIREBASE_DOCTOR_ID), calendarDay.toString(), hour);
-//                    HashMap<String, String> booking = new HashMap<>();
-//                    booking.put(Constants.DATE, calendarDay.toString());
-//                    booking.put(Constants.HOUR, hour);
-//                    booking.put(Constants.FIREBASE_DOCTOR_ID, getArguments().getString(Constants.FIREBASE_DOCTOR_ID));
 
                     documentSnapshot.getReference().update(Constants.FIREBASE_BOOKINGS, FieldValue.arrayUnion(appointmentModel));
 
@@ -176,8 +137,6 @@ public class BookingActivityFragment extends Fragment {
                             .addOnSuccessListener(documentSnapshot1 -> {
                                 documentSnapshot1.getReference()
                                         .update(Objects.requireNonNull(calendarDay.toString()), FieldValue.arrayUnion(hour));
-                                setHour_list(calendarDay);
-                                initializeList();
                             }).addOnFailureListener(e -> Log.e(TAG, "makeBooking: ", e));
 
                 }
@@ -185,6 +144,11 @@ public class BookingActivityFragment extends Fragment {
         });
     }
 
+    private void viewDetailBooking() {
+        Intent intent = new Intent(getActivity(), BookingActivityFragment.class);
+        intent.putExtra(Constants.VIEWPAGER_ITEM_DETAILS, 2);
+        startActivity(new Intent(getActivity(), MainActivity.class));
+    }
 
     private void setHour_list(CalendarDay calendarDay) {
 
@@ -200,6 +164,21 @@ public class BookingActivityFragment extends Fragment {
                     hour_list.remove(testList.get(i));
                 }
             }
+
+            back.setVisibility(View.VISIBLE);
+            forward.setVisibility(View.VISIBLE);
+            selectedHour.setVisibility(View.VISIBLE);
+            completeBooking.setVisibility(View.VISIBLE);
+            currentPosition = 0;
+
+            if(hour_list.size() > 0) {
+                selectedHour.setText(hour_list.get(currentPosition));
+            } else {
+                Toast.makeText(getContext(), "Nu exista ore valabile pentru rezervare", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+
         }).addOnFailureListener(e-> Log.e(TAG, "setButtons: ", e));
 
 

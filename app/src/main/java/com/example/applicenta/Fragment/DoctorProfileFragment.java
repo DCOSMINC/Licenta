@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,13 @@ import com.example.applicenta.R;
 import com.example.applicenta.activity.BookingActivity;
 import com.example.applicenta.general.Constants;
 import com.example.applicenta.general.DoctorCheck;
+import com.example.applicenta.general.FavoriteCheck;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,7 +41,7 @@ public class DoctorProfileFragment extends Fragment implements View.OnClickListe
 
 
     Button bookingBtn;
-    ToggleButton addToFavoriteBtn;
+    Button addToFavoriteBtn;
 
     public DoctorProfileFragment() {
         // Required empty public constructor
@@ -60,12 +68,28 @@ public class DoctorProfileFragment extends Fragment implements View.OnClickListe
 
 
         bookingBtn = view.findViewById(R.id.bookingBtn);
-        addToFavoriteBtn = view.findViewById(R.id.addFavBtn);
         profileImage = view.findViewById(R.id.doctorProfilePicture);
         profileName = view.findViewById(R.id.doctorProfileName);
         profileSpecialty = view.findViewById(R.id.doctorProfileSpecialty);
 
-        profileName.setText("Dr. " + getArguments().getString(Constants.FIREBASE_FIRST_NAME) + " " + getArguments().getString(Constants.FIREBASE_LAST_NAME));
+        FavoriteCheck.checkIfFavorite(value -> {
+            if(value) {
+                addToFavoriteBtn = view.findViewById(R.id.favoriteBtn);
+                addToFavoriteBtn.setText(getResources().getString(R.string.remove_favorite_text));
+                addToFavoriteBtn.setOnClickListener(v -> {
+                    deleteFavorite();
+                    getFragmentManager().popBackStackImmediate();
+                });
+            } else {
+                addToFavoriteBtn = view.findViewById(R.id.favoriteBtn);
+                addToFavoriteBtn.setText(getResources().getString(R.string.add_favorite_text));
+                addToFavoriteBtn.setOnClickListener(v -> {
+                    addFavorite();
+                });
+            }
+        }, getArguments().getString(Constants.FIREBASE_DOCTOR_ID));
+
+        profileName.setText(String.format("Dr. %s %s", getArguments().getString(Constants.FIREBASE_FIRST_NAME), getArguments().getString(Constants.FIREBASE_LAST_NAME)));
         profileSpecialty.setText(getArguments().getString(Constants.FIREBASE_SPECIALTY));
 
 
@@ -77,13 +101,7 @@ public class DoctorProfileFragment extends Fragment implements View.OnClickListe
         }
 
         bookingBtn.setOnClickListener(this);
-        addToFavoriteBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked) {
-                addToFavoriteBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.mipmap.baseline_favorite_black_24));
-            } else {
-                addToFavoriteBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.mipmap.baseline_favorite_border_black_24));
-            }
-        });
+
 
         DoctorCheck.checkIfDoctor(value -> {
             if(value) {
@@ -93,6 +111,36 @@ public class DoctorProfileFragment extends Fragment implements View.OnClickListe
         });
 
         return view;
+    }
+
+    private void addFavorite() {
+        FirebaseFirestore.getInstance().collection(Constants.FIREBASE_USERS).get().addOnSuccessListener(queryDocumentSnapshots -> {
+           for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+               if(documentSnapshot.get(Constants.FIREBASE_ID).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    if(!((List<String>)documentSnapshot.get(Constants.FIREBASE_FAVORITES)).contains(getArguments().getString(Constants.FIREBASE_DOCTOR_ID))) {
+                        documentSnapshot.getReference().update(Constants.FIREBASE_FAVORITES, FieldValue.arrayUnion(getArguments().getString(Constants.FIREBASE_DOCTOR_ID)));
+                    }
+               }
+           }
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "addFavorite: ", e);
+        });
+    }
+
+    private void deleteFavorite() {
+        FirebaseFirestore.getInstance().collection(Constants.FIREBASE_USERS).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                if(documentSnapshot.get(Constants.FIREBASE_ID).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    for(String id : (List<String>)documentSnapshot.get(Constants.FIREBASE_FAVORITES)) {
+                        if(id.equals(getArguments().getString(Constants.FIREBASE_DOCTOR_ID))) {
+                            documentSnapshot.getReference().update(Constants.FIREBASE_FAVORITES, FieldValue.arrayRemove(getArguments().getString(Constants.FIREBASE_DOCTOR_ID)));
+                        }
+                    }
+                }
+            }
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "deleteFavorite: ", e);
+        });
     }
 
 

@@ -46,7 +46,7 @@ public class MyFavoritesRecyclerViewAdapter extends RecyclerView.Adapter<MyFavor
 
         Uri uri = Uri.parse(photoPath);
 
-        String fullName = doctorFirstName.concat(doctorLastName);
+        String fullName = String.format("%s %s", doctorFirstName, doctorLastName);
 
         favoriteDoctorViewHolder.fullName.setText(fullName);
         favoriteDoctorViewHolder.specialty.setText(specialty);

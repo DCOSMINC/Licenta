@@ -169,17 +169,27 @@
                 android:id="@+id/bookingBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/booking" />
+                android:text="@string/booking"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-            <ToggleButton
-                android:id="@+id/addFavBtn"
-                android:layout_width="wrap_content"
+            <android.support.design.button.MaterialButton
+                android:id="@+id/favoriteBtn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:background="@mipmap/baseline_favorite_border_black_48"
-                android:backgroundTint="@color/colorAccent"
-                android:textOff=""
-                android:textOn="" />
+                android:text="@string/add_favorite_text"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <!--<ToggleButton-->
+                <!--android:id="@+id/addFavBtn"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="end"-->
+                <!--android:background="@mipmap/baseline_favorite_border_black_24"-->
+                <!--android:backgroundTint="@color/colorAccent"-->
+                <!--android:textOff=""-->
+                <!--android:textOn="" />-->
 
         </LinearLayout>
 

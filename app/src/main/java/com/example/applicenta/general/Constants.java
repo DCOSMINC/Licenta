@@ -46,6 +46,8 @@ public class Constants {
     public static final String HOUR = "hour";
     public static final String DATE = "date";
 
+    public static final String VIEWPAGER_ITEM_DETAILS = "view pager item details";
+
     public static final String LOGIN_SPINNER_DOCTOR = "doctor";
     public static final String LOGIN_SPINNER_PACIENT = "pacient";
 

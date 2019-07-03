@@ -76,4 +76,6 @@
     <string name="street_name">Nume strada</string>
     <string name="city">Oras</string>
     <string name="county_name">Judet</string>
+    <string name="add_favorite_text">Adaugă la favorite</string>
+    <string name="remove_favorite_text">Sterge favorit</string>
 </resources>

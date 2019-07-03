@@ -77,9 +77,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             return false;
         }
 
-        if(emailSignInInputLayout.getEditText().getText().toString().isEmpty()) {
-            emailSignInInputLayout.setError("password required");
-            emailSignInInputLayout.requestFocus();
+        if(passwordSignInInputLayout.getEditText().getText().toString().isEmpty()) {
+            passwordSignInInputLayout.setError("password required");
+            passwordSignInInputLayout.requestFocus();
             return false;
         }
 

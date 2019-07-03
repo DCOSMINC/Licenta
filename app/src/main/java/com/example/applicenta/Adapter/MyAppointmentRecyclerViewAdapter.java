@@ -1,6 +1,7 @@
 package com.example.applicenta.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,12 @@ import com.example.applicenta.Interface.OnAppointmentListInteractionListener;
 import com.example.applicenta.R;
 import com.example.applicenta.general.Appointment;
 
+import org.threeten.bp.LocalDateTime;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -62,6 +66,10 @@ public class MyAppointmentRecyclerViewAdapter extends RecyclerView.Adapter<MyApp
         });
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
     @Override
     public int getItemCount() {
         return appointments.size();
@@ -94,6 +102,26 @@ public class MyAppointmentRecyclerViewAdapter extends RecyclerView.Adapter<MyApp
     public void deleteItems() {
         appointments.removeAll(appointments);
         notifyItemRangeRemoved(0, appointments.size());
+    }
+
+    public void checkHour() {
+        for(int i = 0; i < appointments.size(); i++) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+            try {
+                Date date = format.parse(appointments.get(i).getDate() +  appointments.get(i).getHour());
+                Log.d(TAG, "checkHour: " + date);
+                Calendar calendar = Calendar.getInstance();
+                LocalDateTime time = LocalDateTime.now();
+                Date dateNow = format.parse(String.valueOf(time));
+                Log.d(TAG, "checkHour: " + dateNow);
+                if(dateNow.equals(date)) {
+                    Log.d(TAG, "checkHour: sunt egale");
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
