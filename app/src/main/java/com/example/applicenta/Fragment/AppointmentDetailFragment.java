@@ -2,10 +2,13 @@ package com.example.applicenta.Fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -34,6 +37,8 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -218,10 +223,32 @@ public class AppointmentDetailFragment extends Fragment implements OnMapReadyCal
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.MY_PERMISIONS_REQUEST_MAP_ACCESS_COARSE_LOCATION);
             return;
         }
+
         map.setMyLocationEnabled(true);
         GeoPoint point = getLocationFromAddress();
-        map.addMarker(new MarkerOptions().position(new LatLng(point.getLatitude(), point.getLongitude())).title("Nebunie"));
+        map.addMarker(new MarkerOptions().position(new LatLng(point.getLatitude(), point.getLongitude())));
         map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(point.getLatitude(), point.getLongitude())));
+
+
+//        HandlerThread handlerThread = new HandlerThread("");
+//        handlerThread.start();
+//        Handler handler = new Handler(handlerThread.getLooper());
+//        map.setMyLocationEnabled(true);
+//        handler.post(() -> {
+//            try {
+//                URL url = new URL("https://google.com");
+//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//                connection.setConnectTimeout(10000);
+//                connection.connect();
+//                if(connection.getResponseCode() == 200) {
+//                    GeoPoint point = getLocationFromAddress();
+//                    map.addMarker(new MarkerOptions().position(new LatLng(point.getLatitude(), point.getLongitude())).title("Nebunie"));
+//                    map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(point.getLatitude(), point.getLongitude())));
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
 
     }
 
